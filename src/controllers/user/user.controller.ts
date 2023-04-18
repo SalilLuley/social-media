@@ -14,7 +14,7 @@ import {
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ROLES } from 'src/core/common/enum/roles.enum';
 import { UpdateProfileUserLoginInfoReqDTO } from 'src/core/dto/user/user-req-update-profile.dto';
-import { UpdatePasswordUserLoginInfoReqDTO } from 'src/core/dto/user/user-req-update-profile.dto copy';
+import { UpdatePasswordUserLoginInfoReqDTO } from 'src/core/dto/user/user-req-update-profile-password.dto';
 import { UserLoginInfoReqDTO } from 'src/core/dto/user/user-req.dto';
 import { RequestWithUser } from 'src/core/interfaces/request.interface';
 import { Roles } from 'src/decorators/roles.decorator';

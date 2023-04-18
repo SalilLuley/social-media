@@ -3,6 +3,7 @@ import { IDataServices } from 'src/core/abstracts';
 import { SQLDataService } from './sql-data-services.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserLoginInfoModel } from './model/user.model';
+import { UserFriendsModel } from './model/user-friends.model';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { UserLoginInfoModel } from './model/user.model';
       entities: [__dirname + '/../**/*.model.js'],
       logging: ['query', 'error'],
     }),
-    TypeOrmModule.forFeature([UserLoginInfoModel]),
+    TypeOrmModule.forFeature([UserLoginInfoModel, UserFriendsModel]),
   ],
   providers: [
     {

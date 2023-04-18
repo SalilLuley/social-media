@@ -1,7 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseModel } from './base.model';
 
 @Entity('user_login_info')
-export class UserLoginInfoModel {
+export class UserLoginInfoModel extends BaseModel {
   @PrimaryGeneratedColumn({ type: 'int', name: 'user_login_info_id' })
   readonly userLoginInfoId?: number;
   @Column({ type: 'varchar', name: 'username' })
@@ -12,10 +13,6 @@ export class UserLoginInfoModel {
   readonly lastname?: string;
   @Column({ type: 'varchar', name: 'password' })
   readonly password?: string;
-  @Column({ type: 'date', name: 'updated_at' })
-  readonly updatedAt?: Date;
-  @Column({ type: 'date', name: 'created_at' })
-  readonly createdAt?: Date;
   @Column({ type: 'varchar', name: 'refresh_token' })
   readonly refreshToken?: string;
   @Column({ type: 'varchar', name: 'role' })

@@ -4,7 +4,7 @@ import { IDataServices } from 'src/core/abstracts';
 import { MESSAGES } from 'src/core/common/messages';
 import { UserDtoConvertor } from 'src/core/convertors/user/user-dto.convertor';
 import { UpdateProfileUserLoginInfoReqDTO } from 'src/core/dto/user/user-req-update-profile.dto';
-import { UpdatePasswordUserLoginInfoReqDTO } from 'src/core/dto/user/user-req-update-profile.dto copy';
+import { UpdatePasswordUserLoginInfoReqDTO } from 'src/core/dto/user/user-req-update-profile-password.dto';
 import { UserLoginInfoReqDTO } from 'src/core/dto/user/user-req.dto';
 import { UserLoginInfoResDTO } from 'src/core/dto/user/user-res.dto';
 import { IResponse } from 'src/core/interfaces/response.interface';
