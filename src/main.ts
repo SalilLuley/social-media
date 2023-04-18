@@ -21,9 +21,11 @@ async function bootstrap() {
   app.use(helmet());
 
   const config = new DocumentBuilder()
+    .addBearerAuth()
     .setTitle('Social Media')
     .setDescription('This is Social Media API description')
     .setVersion('1.0')
+    .setExternalDoc('Postman Collection', '../api-json')
     .addTag('social-media')
     .build();
   const document = SwaggerModule.createDocument(app, config);

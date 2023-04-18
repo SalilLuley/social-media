@@ -25,12 +25,12 @@ import { UserUsecase } from 'src/use-cases/user/user.usecase';
 
 @Controller('users')
 @ApiTags('User')
-@UseGuards(AccessTokenGuard, RolesGuard)
 export class UserController {
   constructor(private userUsecase: UserUsecase) {}
 
   @Get('get-all')
   @ApiBearerAuth()
+  @UseGuards(AccessTokenGuard, RolesGuard)
   @Roles(ROLES.ADMIN)
   async getAll() {
     try {
@@ -42,6 +42,7 @@ export class UserController {
 
   @Get('get-one/:id')
   @ApiBearerAuth()
+  @UseGuards(AccessTokenGuard, RolesGuard)
   @Roles(ROLES.ADMIN)
   async getOne(@Param('id', ParseIntPipe) userId: number) {
     try {
@@ -53,7 +54,6 @@ export class UserController {
 
   @Post('create')
   @ApiBearerAuth()
-  // @Roles(ROLES.ADMIN)
   @UseInterceptors(RefreshTokenUpdateInterceptor)
   async saveUser(@Body() dto: UserLoginInfoReqDTO) {
     try {
@@ -65,6 +65,7 @@ export class UserController {
 
   @Patch('update')
   @ApiBearerAuth()
+  @UseGuards(AccessTokenGuard, RolesGuard)
   @Roles(ROLES.USER, ROLES.ADMIN)
   async update(
     @Request() request: RequestWithUser,
@@ -82,6 +83,7 @@ export class UserController {
 
   @Delete('delete/:id')
   @ApiBearerAuth()
+  @UseGuards(AccessTokenGuard, RolesGuard)
   @Roles(ROLES.ADMIN)
   async delete(@Param('id', ParseIntPipe) userId: number) {
     try {
@@ -93,6 +95,7 @@ export class UserController {
 
   @Get('get-my-profile')
   @ApiBearerAuth()
+  @UseGuards(AccessTokenGuard, RolesGuard)
   @Roles(ROLES.USER, ROLES.ADMIN)
   async getMyProfile(@Request() request: RequestWithUser) {
     try {
@@ -107,6 +110,7 @@ export class UserController {
 
   @Patch('update-password')
   @ApiBearerAuth()
+  @UseGuards(AccessTokenGuard, RolesGuard)
   @Roles(ROLES.USER, ROLES.ADMIN)
   async updatePassword(
     @Request() request: RequestWithUser,

@@ -42,7 +42,6 @@ export class UserUsecase {
     const hashPassword: string = await this.bcryptService.hash(
       userLoginInfoReqDTO.password,
     );
-
     const entity: UserLoginInfoEntity =
       this.userDtoConvertor.toEntityFromUserLoginInfoReqDTO(
         userLoginInfoReqDTO,
