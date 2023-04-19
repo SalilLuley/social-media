@@ -28,6 +28,7 @@ export class PostConvertor {
     return {
       ...dto,
       authorId: userId,
+      id: undefined,
       updatedAt: new Date(),
     };
   }

@@ -61,7 +61,7 @@ export class PostController {
   @Get('get-one/:id')
   @ApiBearerAuth()
   @UseGuards(AccessTokenGuard, RolesGuard)
-  @Roles(ROLES.ADMIN)
+  @Roles(ROLES.ADMIN, ROLES.USER)
   async getOne(
     @Param('id', ParseIntPipe) userId: number,
   ): Promise<IResponse<PostResDto>> {
@@ -110,9 +110,15 @@ export class PostController {
   @ApiBearerAuth()
   @UseGuards(AccessTokenGuard, RolesGuard)
   @Roles(ROLES.ADMIN, ROLES.USER)
-  async delete(@Param('id', ParseIntPipe) userId: number) {
+  async delete(
+    @Request() request: RequestWithUser,
+    @Param('id', ParseIntPipe) postId: number,
+  ) {
     try {
-      return await this.postUsecase.delete(userId);
+      const {
+        user: { userLoginInfoId },
+      } = request;
+      return await this.postUsecase.delete(userLoginInfoId, postId);
     } catch (error) {
       throw error;
     }

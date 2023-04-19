@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { IDataServices } from 'src/core/abstracts';
 import { USER_FRIEND_STATUS } from 'src/core/common/enum/user-friend-status.enum';
 import { MESSAGES } from 'src/core/common/messages';
@@ -57,6 +57,14 @@ export class PostUsecase {
   ): Promise<IResponse<PostResDto>> {
     try {
       const { id } = dto;
+      const postEntity: PostEntity = await this.databaseService.post.get({
+        authorId: userId,
+        id,
+      });
+
+      if (postEntity === null)
+        throw new UnauthorizedException(MESSAGES.POST.UNAUTORISED_ACCESS);
+
       const entity: PostEntity = this.convertor.toUpdateModelFromDto(
         userId,
         dto,
@@ -70,9 +78,17 @@ export class PostUsecase {
       throw error;
     }
   }
-  async delete(id: number): Promise<IResponse<null>> {
+  async delete(userId: number, postId: number): Promise<IResponse<null>> {
     try {
-      await this.databaseService.post.delete(id);
+      const postEntity: PostEntity = await this.databaseService.post.get({
+        authorId: userId,
+        id: postId,
+      });
+
+      if (postEntity === null)
+        throw new UnauthorizedException(MESSAGES.POST.UNAUTORISED_ACCESS);
+
+      await this.databaseService.post.delete(postId);
       return {
         data: null,
         message: MESSAGES.POST.DELETE.SUCCESS,
