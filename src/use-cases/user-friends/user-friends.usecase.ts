@@ -15,10 +15,13 @@ export class UserFriendsUsecase {
     private convertor: UserFriendsConvertor,
   ) {}
 
-  async create(dto: UserFriendsReqDto): Promise<IResponse<UserFriendsResDto>> {
+  async create(
+    userId: number,
+    dto: UserFriendsReqDto,
+  ): Promise<IResponse<UserFriendsResDto>> {
     try {
       const userFriendsEntity: UserFriendsEntity =
-        this.convertor.toModelFromDto(dto);
+        this.convertor.toModelFromDto(userId, dto);
       const entity: UserFriendsEntity =
         await this.databaseService.userFriends.create(userFriendsEntity);
       const data: UserFriendsResDto = this.convertor.toResDtoFromEntity(entity);

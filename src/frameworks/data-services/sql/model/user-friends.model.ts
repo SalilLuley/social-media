@@ -9,6 +9,6 @@ export class UserFriendsModel extends BaseModel {
   readonly sourceId?: number;
   @Column({ type: 'int', name: 'target_id' })
   readonly targetId?: number;
-  @Column({ type: 'int', name: 'lastname' })
+  @Column({ type: 'int', name: 'status' })
   readonly status?: number;
 }

@@ -14,9 +14,10 @@ export class UserFriendsConvertor {
     return entity.map((item) => ({ ...item }));
   }
 
-  toModelFromDto(dto: UserFriendsReqDto): UserFriendsEntity {
+  toModelFromDto(userId: number, dto: UserFriendsReqDto): UserFriendsEntity {
     return {
       ...dto,
+      sourceId: userId,
     };
   }
 
