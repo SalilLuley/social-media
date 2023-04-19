@@ -13,8 +13,10 @@ import {
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ROLES } from 'src/core/common/enum/roles.enum';
 import { UpdateUserFriendsReqDto } from 'src/core/dto/user-friends/user-friends--update-req-dto';
+import { UserFindMyFriendsReqDto } from 'src/core/dto/user-friends/user-friends-find-req-dto';
 import { UserFriendsReqDto } from 'src/core/dto/user-friends/user-friends-req-dto';
 import { UserFriendsResDto } from 'src/core/dto/user-friends/user-friends-res-dto';
+import { UserLoginInfoResDTO } from 'src/core/dto/user/user-res.dto';
 import { RequestWithUser } from 'src/core/interfaces/request.interface';
 import { IResponse } from 'src/core/interfaces/response.interface';
 import { Roles } from 'src/decorators/roles.decorator';
@@ -90,6 +92,23 @@ export class UserFriendsController {
   ): Promise<IResponse<UserFriendsResDto>> {
     try {
       return await this.usecase.getOne(id);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  @Patch('find-my-friends')
+  @ApiBearerAuth()
+  @Roles(ROLES.USER, ROLES.ADMIN)
+  async findMyFriends(
+    @Request() request: RequestWithUser,
+    @Body() dto: UserFindMyFriendsReqDto,
+  ): Promise<IResponse<UserLoginInfoResDTO[]>> {
+    try {
+      const {
+        user: { userLoginInfoId },
+      } = request;
+      return await this.usecase.findMyFriends(userLoginInfoId, dto);
     } catch (error) {
       throw error;
     }

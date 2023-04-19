@@ -10,6 +10,11 @@ CREATE TABLE `e_com`.`user_login_info` (
   `role` VARCHAR(45) NULL,
   PRIMARY KEY (`user_login_info_id`));
 
+ALTER TABLE `dev_social_media`.`user_login_info` 
+ADD UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE;
+;
+
+
 CREATE TABLE `dev_social_media`.`user_friends` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `source_id` INT NOT NULL,

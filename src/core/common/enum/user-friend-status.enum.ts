@@ -1,0 +1,4 @@
+export enum USER_FRIEND_STATUS {
+  REQUEST_SEND = 0,
+  REQUEST_ACCEPTED = 1,
+}

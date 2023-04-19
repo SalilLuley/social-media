@@ -1,4 +1,5 @@
 import { IGenericRepository } from 'src/core/abstracts';
+import { USER_FRIEND_STATUS } from 'src/core/common/enum/user-friend-status.enum';
 import { Repository } from 'typeorm';
 
 export class SQLGenericRepository<T> implements IGenericRepository<T> {
@@ -39,5 +40,19 @@ export class SQLGenericRepository<T> implements IGenericRepository<T> {
   }
   delete(id: any) {
     return this._repository.delete(id);
+  }
+
+  async caseQuery(id: any, status: USER_FRIEND_STATUS) {
+    return await this._repository.query(`SELECT 
+    U.*
+FROM
+    user_friends AS F,
+    user_login_info AS U
+WHERE
+    CASE
+        WHEN F.source_id = ${id} THEN F.target_id = U.user_login_info_id 
+        WHEN F.target_id = ${id} THEN F.source_id = U.user_login_info_id
+    END
+        AND F.status = ${status};`);
   }
 }

@@ -115,5 +115,8 @@ export const MESSAGES = {
     DELETE: {
       SUCCESS: 'DELETED USER FRIEND',
     },
+    FIND_MY_FRIENDS: {
+      SUCCESS: 'SUCCESSFULLY FETCHED FRIENDS',
+    },
   },
 };
