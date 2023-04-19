@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { UpdateUserFriendsReqDto } from 'src/core/dto/user-friends/user-friends--update-req-dto';
+import { UpdateUserFriendsReqDto } from 'src/core/dto/user-friends/user-friends-update-req-dto';
 import { UserFriendsReqDto } from 'src/core/dto/user-friends/user-friends-req-dto';
 import { UserFriendsResDto } from 'src/core/dto/user-friends/user-friends-res-dto';
 import { UserLoginInfoResDTO } from 'src/core/dto/user/user-res.dto';

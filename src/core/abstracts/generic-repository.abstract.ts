@@ -7,5 +7,6 @@ export abstract class IGenericRepository<T> {
   abstract create(item: T): Promise<T>;
   abstract update(id: any, item: T);
   abstract delete(id: any);
+  abstract deleteByProperties(properties: any);
   abstract caseQuery(id: any, status: USER_FRIEND_STATUS);
 }

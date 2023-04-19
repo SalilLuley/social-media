@@ -55,4 +55,12 @@ WHERE
     END
         AND F.status = ${status};`);
   }
+
+  // async deleteByProperties(properties: any) {
+  //   return await this._repository.delete({ ...properties });
+  // }
+
+  async deleteByProperties(properties: any) {
+    return await this._repository.delete({ ...properties });
+  }
 }
