@@ -4,6 +4,7 @@ import { SQLDataService } from './sql-data-services.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserLoginInfoModel } from './model/user.model';
 import { UserFriendsModel } from './model/user-friends.model';
+import { PostModel } from './model/post.model';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { UserFriendsModel } from './model/user-friends.model';
       entities: [__dirname + '/../**/*.model.js'],
       logging: ['query', 'error'],
     }),
-    TypeOrmModule.forFeature([UserLoginInfoModel, UserFriendsModel]),
+    TypeOrmModule.forFeature([UserLoginInfoModel, UserFriendsModel, PostModel]),
   ],
   providers: [
     {

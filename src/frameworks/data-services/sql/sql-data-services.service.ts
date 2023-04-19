@@ -7,17 +7,22 @@ import { SQLGenericRepository } from './sql-generic-repository';
 import { UserFriendsEntity } from 'src/core/entities/user-friends/user-friends.entity';
 import { UserFriendsModel } from './model/user-friends.model';
 import { UserLoginInfoEntity } from 'src/core';
+import { PostEntity } from 'src/core/entities/post/post.entity';
+import { PostModel } from './model/post.model';
 
 @Injectable()
 export class SQLDataService implements IDataServices, OnApplicationBootstrap {
   users: IGenericRepository<UserLoginInfoEntity>;
   userFriends: IGenericRepository<UserFriendsEntity>;
+  post: IGenericRepository<PostEntity>;
 
   constructor(
     @InjectRepository(UserLoginInfoModel)
     private usersRepository: Repository<UserLoginInfoEntity>,
     @InjectRepository(UserFriendsModel)
     private usersFriendsRepository: Repository<UserFriendsEntity>,
+    @InjectRepository(PostModel)
+    private postRepository: Repository<PostEntity>,
   ) {}
 
   onApplicationBootstrap() {
@@ -28,5 +33,7 @@ export class SQLDataService implements IDataServices, OnApplicationBootstrap {
     this.userFriends = new SQLGenericRepository<UserFriendsModel>(
       this.usersFriendsRepository,
     );
+
+    this.post = new SQLGenericRepository<PostModel>(this.postRepository);
   }
 }

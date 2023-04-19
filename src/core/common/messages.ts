@@ -119,4 +119,18 @@ export const MESSAGES = {
       SUCCESS: 'SUCCESSFULLY FETCHED FRIENDS',
     },
   },
+  POST: {
+    CREATE: {
+      SUCCESS: 'SUCCESSFULLY ADDED USER FRIEND',
+    },
+    GET: {
+      SUCCESS: 'SUCCESSFULLY FETCHED USER FRIEND',
+    },
+    UPDATE: {
+      SUCCESS: 'SUCCESSFULLY UPDATED USER FRIEND',
+    },
+    DELETE: {
+      SUCCESS: 'DELETED USER FRIEND',
+    },
+  },
 };

@@ -6,6 +6,7 @@ import { UserLoginInfoModel } from '../sql/model/user.model';
 import { Model } from 'mongoose';
 import { MongoGenericRepository } from './mongo-generic-repository';
 import { UserFriendsEntity } from 'src/core/entities/user-friends/user-friends.entity';
+import { PostEntity } from 'src/core/entities/post/post.entity';
 
 export class MongoDataServices
   implements IDataServices, OnApplicationBootstrap
@@ -17,6 +18,7 @@ export class MongoDataServices
     @InjectModel(UserLoginInfoEntity.name)
     private userLoginInfoModel: Model<UserLoginInfoModel>,
   ) {}
+  post: IGenericRepository<PostEntity>;
 
   onApplicationBootstrap() {
     this.users = new MongoGenericRepository<UserLoginInfoEntity>(

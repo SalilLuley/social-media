@@ -1,6 +1,7 @@
 import { IGenericRepository } from 'src/core/abstracts';
 import { USER_FRIEND_STATUS } from 'src/core/common/enum/user-friend-status.enum';
 import { Repository } from 'typeorm';
+import { In } from 'typeorm';
 
 export class SQLGenericRepository<T> implements IGenericRepository<T> {
   private _repository: Repository<T>;
@@ -44,7 +45,7 @@ export class SQLGenericRepository<T> implements IGenericRepository<T> {
 
   async caseQuery(id: any, status: USER_FRIEND_STATUS) {
     return await this._repository.query(`SELECT 
-    U.*
+    U.user_login_info_id as userLoginInfoId
 FROM
     user_friends AS F,
     user_login_info AS U
@@ -58,5 +59,11 @@ WHERE
 
   async deleteByProperties(properties: any) {
     return await this._repository.delete({ ...properties });
+  }
+  async getAllByIdsIn(properties: any, propertyName: string): Promise<T[]> {
+    const query: any = {
+      [propertyName]: In(properties),
+    };
+    return await this._repository.findBy(query);
   }
 }

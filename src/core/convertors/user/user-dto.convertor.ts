@@ -93,4 +93,14 @@ export class UserDtoConvertor {
   ): UserLoginInfoEntity {
     return { password };
   }
+  toUserIdsFromUserLoginInfoEntity(
+    userId: number,
+    userLoginInfoEntities: UserLoginInfoEntity[],
+  ): number[] {
+    const friendIds: number[] = userLoginInfoEntities.map(
+      ({ userLoginInfoId }) => userLoginInfoId,
+    );
+    friendIds.push(userId);
+    return friendIds;
+  }
 }

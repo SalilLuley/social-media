@@ -12,6 +12,9 @@ export class MongoGenericRepository<T> implements IGenericRepository<T> {
     this._repository = repository;
     this._populateOnFind = populateOnFind;
   }
+  getAllByIdsIn<U>(properties: U): Promise<T[]> {
+    throw new Error('Method not implemented.');
+  }
   deleteByProperties<U>(properties: U): Promise<T[]> {
     throw new Error('Method not implemented.');
   }

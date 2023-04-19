@@ -12,7 +12,6 @@ CREATE TABLE `e_com`.`user_login_info` (
 
 ALTER TABLE `dev_social_media`.`user_login_info` 
 ADD UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE;
-;
 
 
 CREATE TABLE `dev_social_media`.`user_friends` (
@@ -25,3 +24,18 @@ CREATE TABLE `dev_social_media`.`user_friends` (
   `deleted_at` TIMESTAMP NULL,
   PRIMARY KEY (`id`));
 
+
+CREATE TABLE `dev_social_media`.`post` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `author_id` INT NOT NULL,
+  `parent_id` INT NULL,
+  `title` VARCHAR(75) NULL,
+  `meta_title` VARCHAR(100) NULL,
+  `slug` VARCHAR(100) NULL,
+  `summary` TINYTEXT NULL,
+  `published` TINYINT NULL,
+  `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NULL,
+  `published_at` DATETIME NULL,
+  `content` TEXT NULL,
+  PRIMARY KEY (`id`));

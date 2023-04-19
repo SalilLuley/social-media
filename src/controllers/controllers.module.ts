@@ -11,6 +11,8 @@ import { UserUsecaseModule } from 'src/use-cases/user/user.module';
 import { UserFriendsController } from './user-friends/user-friends.controller';
 import { UserFriendsModel } from 'src/frameworks/data-services/sql/model/user-friends.model';
 import { UserFriendsModule } from 'src/use-cases/user-friends/user-friends.module';
+import { PostController } from './post/post.controller';
+import { PostModule } from 'src/use-cases/post/post.module';
 
 @Module({
   imports: [
@@ -21,7 +23,13 @@ import { UserFriendsModule } from 'src/use-cases/user-friends/user-friends.modul
     LoginUsecaseModule,
     UserUsecaseModule,
     UserFriendsModule,
+    PostModule,
   ],
-  controllers: [AuthController, UserController, UserFriendsController],
+  controllers: [
+    AuthController,
+    UserController,
+    UserFriendsController,
+    PostController,
+  ],
 })
 export class ControllersModule {}
