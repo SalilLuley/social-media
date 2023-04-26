@@ -9,10 +9,11 @@ import { AuthController } from './auth/auth.controller';
 import { UserController } from './user/user.controller';
 import { UserUsecaseModule } from 'src/use-cases/user/user.module';
 import { UserFriendsController } from './user-friends/user-friends.controller';
-import { UserFriendsModel } from 'src/frameworks/data-services/sql/model/user-friends.model';
 import { UserFriendsModule } from 'src/use-cases/user-friends/user-friends.module';
 import { PostController } from './post/post.controller';
-import { PostModule } from 'src/use-cases/post/post.module';
+import { PostUsecaseModule } from 'src/use-cases/post/post.module';
+import { CommunityController } from './community/community.controller';
+import { CommunityUsecaseModule } from 'src/use-cases/community/community.module';
 
 @Module({
   imports: [
@@ -23,13 +24,15 @@ import { PostModule } from 'src/use-cases/post/post.module';
     LoginUsecaseModule,
     UserUsecaseModule,
     UserFriendsModule,
-    PostModule,
+    PostUsecaseModule,
+    CommunityUsecaseModule,
   ],
   controllers: [
     AuthController,
     UserController,
     UserFriendsController,
     PostController,
+    CommunityController,
   ],
 })
 export class ControllersModule {}

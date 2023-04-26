@@ -5,6 +5,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserLoginInfoModel } from './model/user.model';
 import { UserFriendsModel } from './model/user-friends.model';
 import { PostModel } from './model/post.model';
+import { CommunityModel } from './model/community.model';
+import { UserCommunityModel } from './model/user-community.model';
 
 @Module({
   imports: [
@@ -17,7 +19,13 @@ import { PostModel } from './model/post.model';
       entities: [__dirname + '/../**/*.model.js'],
       logging: ['query', 'error'],
     }),
-    TypeOrmModule.forFeature([UserLoginInfoModel, UserFriendsModel, PostModel]),
+    TypeOrmModule.forFeature([
+      UserLoginInfoModel,
+      UserFriendsModel,
+      PostModel,
+      CommunityModel,
+      UserCommunityModel,
+    ]),
   ],
   providers: [
     {

@@ -7,6 +7,8 @@ import { Model } from 'mongoose';
 import { MongoGenericRepository } from './mongo-generic-repository';
 import { UserFriendsEntity } from 'src/core/entities/user-friends/user-friends.entity';
 import { PostEntity } from 'src/core/entities/post/post.entity';
+import { CommunityEntity } from 'src/core/entities/community/community.entity';
+import { UserCommunityEntity } from 'src/core/entities/user-community/user-community.entity';
 
 export class MongoDataServices
   implements IDataServices, OnApplicationBootstrap
@@ -18,6 +20,8 @@ export class MongoDataServices
     @InjectModel(UserLoginInfoEntity.name)
     private userLoginInfoModel: Model<UserLoginInfoModel>,
   ) {}
+  userCommunity: IGenericRepository<UserCommunityEntity>;
+  community: IGenericRepository<CommunityEntity>;
   post: IGenericRepository<PostEntity>;
 
   onApplicationBootstrap() {

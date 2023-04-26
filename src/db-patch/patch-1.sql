@@ -39,3 +39,27 @@ CREATE TABLE `dev_social_media`.`post` (
   `published_at` DATETIME NULL,
   `content` TEXT NULL,
   PRIMARY KEY (`id`));
+
+
+CREATE TABLE `dev_social_media`.`community` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `title` VARCHAR(45) NULL,
+  `desc` TEXT NULL,
+  PRIMARY KEY (`id`));
+
+ALTER TABLE `dev_social_media`.`community` 
+ADD COLUMN `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP AFTER `desc`,
+ADD COLUMN `updated_at` TIMESTAMP NULL AFTER `created_at`;
+
+
+CREATE TABLE `dev_social_media`.`user_community` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_login_info_id` INT NOT NULL,
+  `community_id` INT NOT NULL,
+  PRIMARY KEY (`id`));
+
+
+  ALTER TABLE `dev_social_media`.`user_community` 
+ADD COLUMN `created_at` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP AFTER `community_id`,
+ADD COLUMN `updated_at` TIMESTAMP NULL AFTER `created_at`;
+
