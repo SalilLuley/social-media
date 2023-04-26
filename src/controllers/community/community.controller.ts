@@ -23,6 +23,7 @@ import { Roles } from 'src/decorators/roles.decorator';
 import { AccessTokenGuard } from 'src/guards/auth/accessToken.guard';
 import { RolesGuard } from 'src/guards/roles.guard';
 import { CommunityAddUserInterceptor } from 'src/interceptors/community/add-user.interceptor';
+import { CommunityCreateInterceptor } from 'src/interceptors/community/create-community.interceptor';
 import { CommunityUsecase } from 'src/use-cases/community/community.usecase';
 
 @Controller('community')
@@ -44,6 +45,7 @@ export class CommunityController {
 
   @Post('create')
   @ApiBearerAuth()
+  @UseInterceptors(CommunityCreateInterceptor)
   @Roles(ROLES.ADMIN, ROLES.USER)
   async create(
     @Body() dto: CommunityReqDto,
@@ -89,6 +91,23 @@ export class CommunityController {
   ): Promise<IResponse<CommunityResDto>> {
     try {
       return await this.usecase.getOne(id);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  @Get('get-my-communitiy/:id')
+  @ApiBearerAuth()
+  @Roles(ROLES.ADMIN, ROLES.USER)
+  async getMyCommunity(
+    @Request() request: RequestWithUser,
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<IResponse<CommunityResDto>> {
+    try {
+      const {
+        user: { userLoginInfoId },
+      } = request;
+      return await this.usecase.getMyCommunity(userLoginInfoId, id);
     } catch (error) {
       throw error;
     }

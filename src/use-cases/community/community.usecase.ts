@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { IDataServices } from 'src/core/abstracts';
 import { MESSAGES } from 'src/core/common/messages';
 import { CommunityConvertor } from 'src/core/convertors/community/community.convertor';
@@ -102,7 +102,7 @@ export class CommunityUsecase {
         await this.databaseService.userCommunity.create(entity);
       return {
         data,
-        message: MESSAGES.USER_ADDRESS.GET.SUCCESS,
+        message: MESSAGES.COMMUNITY.USER.CREATE.SUCCESS,
       };
     } catch (error) {
       throw error;
@@ -114,12 +114,13 @@ export class CommunityUsecase {
       await this.databaseService.userCommunity.delete(id);
       return {
         data: null,
-        message: MESSAGES.COMMUNITY.DELETE.SUCCESS,
+        message: MESSAGES.COMMUNITY.USER.DELETE.SUCCESS,
       };
     } catch (error) {
       throw error;
     }
   }
+
   async getMyCommunities(
     userLoginInfoId: number,
   ): Promise<IResponse<CommunityResDto[]>> {
@@ -140,6 +141,31 @@ export class CommunityUsecase {
       const data: CommunityResDto[] =
         this.convertor.toResDtoFromEntities(entities);
 
+      return {
+        data,
+        message: MESSAGES.COMMUNITY.GET.SUCCESS,
+      };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getMyCommunity(
+    userLoginInfoId: number,
+    communityId: number,
+  ): Promise<IResponse<CommunityResDto>> {
+    try {
+      const userCommunityEntity: UserCommunityEntity =
+        await this.databaseService.userCommunity.get({
+          userLoginInfoId,
+          communityId,
+        });
+      if (userCommunityEntity === null) {
+        throw new ForbiddenException();
+      }
+      const data: CommunityEntity = await this.databaseService.community.get(
+        communityId,
+      );
       return {
         data,
         message: MESSAGES.COMMUNITY.GET.SUCCESS,

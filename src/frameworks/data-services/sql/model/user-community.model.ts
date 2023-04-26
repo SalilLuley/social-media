@@ -9,4 +9,6 @@ export class UserCommunityModel extends BaseModel {
   readonly userLoginInfoId?: number;
   @Column({ type: 'int', name: 'community_id' })
   readonly communityId?: number;
+  @Column({ type: 'int', name: 'role' })
+  readonly role?: number;
 }
