@@ -9,9 +9,11 @@ import {
 import { MESSAGES } from 'src/core/common/messages';
 import { IDataServices } from 'src/core/abstracts';
 import { UserCommunityEntity } from 'src/core/entities/user-community/user-community.entity';
+import { UserLoginInfoEntity } from 'src/core';
+import { CommunityRoleEnum } from 'src/core/common/enum/community-role.enum';
 
 @Injectable()
-export class CommunityAddUserInterceptor implements NestInterceptor {
+export class CommunityAdminInterceptor implements NestInterceptor {
   constructor(private databaseService: IDataServices) {}
 
   async intercept(
@@ -19,17 +21,23 @@ export class CommunityAddUserInterceptor implements NestInterceptor {
     next: CallHandler,
   ): Promise<Observable<any>> {
     const request = context.switchToHttp().getRequest();
-    const userLoginInfoId = request.body.userLoginInfoId;
     const communityId = request.body.communityId;
+    const { userLoginInfoId }: UserLoginInfoEntity = request.user;
 
-    const entities: UserCommunityEntity =
+    const userCommunityEntity: UserCommunityEntity =
       await this.databaseService.userCommunity.get({
         userLoginInfoId,
         communityId,
       });
-    if (entities !== null) {
-      throw new BadRequestException(MESSAGES.COMMUNITY.USER_ALREADY_EXISTS);
+
+    if (userCommunityEntity === null) {
+      throw new BadRequestException(MESSAGES.COMMUNITY.USER_NOT_BELONG);
     }
+
+    if (userCommunityEntity.role !== CommunityRoleEnum.ADMIN) {
+      throw new BadRequestException(MESSAGES.COMMUNITY.ONLY_ADMIN_CAN_ADD_USER);
+    }
+
     return next.handle();
   }
 }

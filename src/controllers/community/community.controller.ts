@@ -23,6 +23,8 @@ import { Roles } from 'src/decorators/roles.decorator';
 import { AccessTokenGuard } from 'src/guards/auth/accessToken.guard';
 import { RolesGuard } from 'src/guards/roles.guard';
 import { CommunityAddUserInterceptor } from 'src/interceptors/community/add-user.interceptor';
+import { CommunityAdminInterceptor } from 'src/interceptors/community/admin.interceptor';
+import { CommunityNotExistsInterceptor } from 'src/interceptors/community/not-exists.interceptor';
 import { CommunityCreateInterceptor } from 'src/interceptors/community/create-community.interceptor';
 import { CommunityUsecase } from 'src/use-cases/community/community.usecase';
 
@@ -132,7 +134,11 @@ export class CommunityController {
   @Post('add-user')
   @ApiBearerAuth()
   @Roles(ROLES.ADMIN, ROLES.USER)
-  @UseInterceptors(CommunityAddUserInterceptor)
+  @UseInterceptors(
+    CommunityNotExistsInterceptor,
+    CommunityAdminInterceptor,
+    CommunityAddUserInterceptor,
+  )
   async addUser(
     @Body() dto: CommunityAddUserReqDto,
   ): Promise<IResponse<CommunityResDto>> {
@@ -145,7 +151,8 @@ export class CommunityController {
 
   @Delete('remove-user/:id')
   @ApiBearerAuth()
-  @Roles(ROLES.ADMIN)
+  @Roles(ROLES.ADMIN, ROLES.USER)
+  @UseInterceptors(CommunityNotExistsInterceptor, CommunityAdminInterceptor)
   async removeUser(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<IResponse<CommunityResDto>> {
